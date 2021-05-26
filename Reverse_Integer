@@ -1,0 +1,27 @@
+class Solution {
+    public int reverse(int x) {
+        int negCheck = 1;
+        int newVal = 0;
+        if (x < 0) {
+            negCheck = negCheck * -1;
+            x = x * -1;
+        }
+        while (x != 0) {
+            int pop = x % 10;
+            x /= 10;
+            
+            if (newVal > Integer.MAX_VALUE/10 || (newVal == Integer.MAX_VALUE / 10 && pop > 7)) {
+                return 0;
+            }
+            if (newVal < Integer.MIN_VALUE/10 || (newVal == Integer.MIN_VALUE / 10 && pop < -8)) {
+                return 0;
+            }
+            
+            newVal = (newVal * 10) + pop;
+        }
+        
+        newVal = newVal * negCheck;
+        return newVal;
+        
+    }
+}
