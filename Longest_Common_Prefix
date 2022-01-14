@@ -1,0 +1,41 @@
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        int subLength = 0;
+        int shortestWordLength = 0;
+        
+        // find shortest string (max returnable value)
+        for (int i = 0; i < strs.size(); i++) {
+            if (shortestWordLength == 0) {
+                shortestWordLength = strs[i].length();
+            }
+            else {
+                if (strs[i].length() < shortestWordLength) {
+                    shortestWordLength = strs[i].length();
+                }
+            }
+        }
+        
+        string result = "";
+        char current;
+        
+        if (shortestWordLength == 0) {
+            return result;
+        }
+        
+        // check letters to see if same, concat if so, return result if not
+        for (int i = 0; i < shortestWordLength ; i++) {
+            current = strs[0][i];
+            
+            for (int j = 1 ; j < strs.size() ; j++) {
+                if (strs[j][i] != current) {
+                    return result;
+                }
+            }
+            
+            result.push_back(current);
+        }
+        
+        return result;
+    }
+};
