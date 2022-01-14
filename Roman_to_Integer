@@ -1,0 +1,98 @@
+class Solution {
+public:
+    int romanToInt(string s) {
+        int solution = 0;
+        
+        while (s.length() != 0) {
+            if (s[0] == 'M') {
+                solution += 1000;
+                s = s.substr(1);
+                continue;
+            }
+            
+            if (s[0] == 'D') {
+                solution += 500;
+                s = s.substr(1);
+                continue;
+            }
+            
+            if (s[0] == 'C') {
+                
+                if (s[1] == 'M') {
+                    solution += 900;
+                    s = s.substr(2);
+                    continue;
+                }
+                
+                else if (s[1] == 'D') {
+                    solution += 400;
+                    s = s.substr(2);
+                    continue;
+                }
+                
+                else {
+                    solution += 100;
+                    s = s.substr(1);
+                    continue;
+                }
+            }
+            
+            if (s[0] == 'L') {
+                solution += 50;
+                s = s.substr(1);
+                continue;
+            }
+            
+            if (s[0] == 'X') {
+                
+                if (s[1] == 'C') {
+                    solution += 90;
+                    s = s.substr(2);
+                    continue;
+                }
+                
+                else if (s[1] == 'L') {
+                    solution += 40;
+                    s = s.substr(2);
+                    continue;
+                }
+                
+                else {
+                    solution += 10;
+                    s = s.substr(1);
+                    continue;
+                }
+            }
+            
+            if (s[0] == 'V') {
+                solution += 5;
+                s = s.substr(1);
+                continue;
+            }
+            
+            if (s[0] == 'I') {
+                
+                if (s[1] == 'X') {
+                    solution += 9;
+                    s = s.substr(2);
+                    continue;
+                }
+                
+                else if (s[1] == 'V') {
+                    solution += 4;
+                    s = s.substr(2);
+                    continue;
+                }
+                
+                else {
+                    solution += 1;
+                    s = s.substr(1);
+                    continue;
+                }
+            }
+            
+        }
+        
+        return solution;
+    }
+};
