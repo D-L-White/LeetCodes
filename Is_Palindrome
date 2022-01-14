@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        // check for negative or trailing 0 for last digit
+        if (x < 0 || (x % 10 == 0 && x != 0)) {
+            return false;
+        }
+        
+        int inverted = 0;
+        
+        // while original still larger, increment inverted half and add lower didgit
+        while (x > inverted) {
+            inverted = inverted * 10 + (x % 10);
+            // clear lower didgit
+            x = x/10;
+        }
+        
+        // return if first and second half are same or if "middle" didgit removed makes same 
+        return x == inverted || x == inverted / 10;
+    }
+};
