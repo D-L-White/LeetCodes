@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        // iterating from end
+        int index = digits.size()-1;
+        
+        // carry leads to overwrite to 0 along all 9s from base
+        while (index >= 0 && digits[index] == 9) {
+            digits[index] = 0;
+            index--;
+        }
+        // check for if all were 9s
+        if (index < 0) {
+            digits.insert(digits.begin(), 1, 1);
+        }
+        // else increment the last one that wasn't a 9
+        else {
+            digits[index]++;
+        }
+        
+        return digits;
+    }
+};
