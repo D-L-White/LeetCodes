@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        // check for valid input to sort
+        if (nums.size() == 0 || nums.size() == 1) {
+            return nums.size();
+        }
+        
+        // counting unique
+        int nextUnique = 0;
+        
+        // check for element inequality
+        for (int i = 0; i < nums.size() -1 ; i++) {
+            if (nums[i] != nums[i+1]) {
+                // drop it back towards front in line of unique ones
+                nums[nextUnique++] = nums[i];
+            }
+        }
+        
+        // final one either never compared or was line of dupes that never was put in place
+        nums[nextUnique++] = nums[nums.size() - 1];
+        
+        return nextUnique;
+    }
+};
