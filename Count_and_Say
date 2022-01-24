@@ -1,0 +1,33 @@
+class Solution {
+public:
+    string countAndSay(int n) {
+        // base cases not needing calculations (nor fitting for loop)
+        if (n == 1) {
+            return "1";
+        }
+        if (n == 2) {
+            return "11";
+        }
+
+        // initial "previous term"
+        string result = "11";
+        for (int i = 3; i <= n; i++) {
+            // initialize count and temp string
+            int count = 1;
+            string temp = "";
+            // process previous terms to find next
+            for (int j = 1; j <= result.length(); j++) {
+                if (result[j] != result[j-1]) {
+                    temp += count + '0';
+                    temp += result[j-1];
+                    count = 1;
+                }
+                else {
+                    count++;
+                }
+            }
+            result = temp;
+        }
+        return result;
+    }
+};
