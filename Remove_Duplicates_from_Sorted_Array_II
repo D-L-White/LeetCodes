@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        // if only two elements or less, return the size
+        if (nums.size() <= 2) {
+            return nums.size();
+        }
+        
+        // instantiate iterator and position for latest legitimate value
+        int i = 2;
+        int latest = 2;
+        // iterate through array
+        while (i < nums.size()) {
+            // if next value being checked isn't what we've seen two legitmate values ago
+            if (nums[i] != nums[latest - 2]) {
+                // update legitimate position with next legitimate value and increment position
+                nums[latest] = nums[i];
+                latest++;
+            }
+            // prepare to check next
+            i++;
+        }
+        
+        // return count of legitimate values
+        return latest;
+    }
+};
