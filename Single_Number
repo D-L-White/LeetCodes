@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+        // initialize what will be returned as a all 0 bit int
+        int result = 0;
+        // loop through all of the values in given array
+        for (int i = 0; i < nums.size(); i++) {
+            // XOR the previous result with latest
+            //  as long as there is only one value appearing once, all other duplicates will cancel out
+            result = result ^ nums[i];
+        }
+        // return result
+        return result;
+    }
+};
