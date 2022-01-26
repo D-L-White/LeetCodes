@@ -1,0 +1,40 @@
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        // ensure input provided
+        if (nums.size() == 0) {
+            return;
+        }
+        
+        // count each type
+        int zeros = 0;
+        int ones = 0;
+        int twos = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] == 0) {
+                zeros++;
+            }
+            else if (nums[i] == 1) {
+                ones++;
+            }
+            else if (nums[i] == 2) {
+                twos++;
+            }
+        }
+        
+        // iterate through vector placing the number of each found in order
+        int i = 0;
+        while (i < zeros) {
+            nums[i] = 0;
+            i++;
+        }
+        while (i < zeros+ones) {
+            nums[i] = 1;
+            i++;
+        }
+        while (i < nums.size()) {
+            nums[i] = 2;
+            i++;
+        }
+    }
+};
