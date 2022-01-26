@@ -1,0 +1,56 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> getAllElements(TreeNode* root1, TreeNode* root2) {
+        // holders for result and tree data
+        vector<int> result;
+        stack<TreeNode*> stack1;
+        stack<TreeNode*> stack2;
+        
+        // pull all from first tree
+        while (root1 != NULL || stack1.empty() == false) {
+            // traverse left adding roots until hit bottom
+            while (root1 != NULL) {
+                stack1.push(root1);
+                root1 = root1->left;
+            }
+            // take in last one (leaf) and remove from stack
+            root1 = stack1.top();
+            stack1.pop();
+            // record val from latest root
+            result.push_back(root1->val);
+            // check for paths to right
+            root1 = root1->right;
+        }
+        
+        // pull all from second tree
+        while (root2 != NULL || stack2.empty() == false) {
+            // traverse left adding roots until hit bottom
+            while (root2 != NULL) {
+                stack2.push(root2);
+                root2 = root2->left;
+            }
+            // take in last one (leaf) and remove from stack
+            root2 = stack2.top();
+            stack2.pop();
+            // record val from latest root
+            result.push_back(root2->val);
+            // check for paths to right
+            root2 = root2->right;
+        }
+        
+        // sort and return
+        sort(result.begin(), result.end());
+        return result;
+    }
+};
