@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        // base cases to check if need to do work
+        if (needle == "") {
+            return 0;
+        }
+        if (needle.length() > haystack.length()) {
+            return -1;
+        }
+        
+        bool check = true;
+        
+        // cycle only through what will fit
+        for (int i = 0; i <= haystack.length() - needle.length() ; i++){
+            check = true;
+            // check for short needle find
+            if (haystack[i] == needle[0]) {
+                if (needle.length() == 1) {
+                    return i;
+                }
+                else {
+                    // check from point of needle lead for fit
+                    for (int j = 1 ; j < needle.length() ; j++) {
+                        if (haystack[i+j] != needle[j]) {
+                            check = false;
+                            break;
+                        }
+                    }
+                    // if full needle found, return out
+                    if (check == true) {
+                        return i;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+};

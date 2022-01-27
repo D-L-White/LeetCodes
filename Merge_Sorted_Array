@@ -1,0 +1,32 @@
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        // position iterators
+        int i = m -1;
+        int j = n-1;
+        int index = m + n - 1;
+        
+        // check for highest final number
+        //  place in last position of nums1 and decrement relevant iterator
+        //  continue until one is finished
+        while (i >= 0 && j >= 0) {
+            if (nums1[i] >= nums2[j]) {
+                nums1[index] = nums1[i];
+                i--;
+            }
+            else {
+                nums1[index] = nums2[j];
+                j--;
+            }
+            index--;
+        }
+        
+        // if more still needed to be brought from nums 2, insert them
+        while (j >= 0) {
+            nums1[index] = nums2[j];
+            index--;
+            j--;
+        }
+        return;
+    }
+};

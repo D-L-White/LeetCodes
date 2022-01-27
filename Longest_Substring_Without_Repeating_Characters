@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        // full length of string
+        int length = s.size();
+        
+        // result of finding substring
+        int result = 0;
+        
+        // index of all characters holding where it was used last
+        vector<int> lastIndex(256, -1);
+        
+        // start of sliding window
+        int i = 0;
+        
+        // move forward end of current window
+        for (int j = 0 ; j < length ; j++) {
+            // determine last know index for character at j
+            i = max(i, lastIndex[s[j]] + 1);
+            
+            // update result if window is increasing
+            result = max(result, j - i + 1);
+            
+            // update latest index for currently checked letter
+            lastIndex[s[j]] = j;
+        }
+        
+        return result;
+    }
+};

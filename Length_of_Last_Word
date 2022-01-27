@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+        
+        // improved run:
+        //  iterate from end of string to potentially save run time
+        
+        int endPoint = s.length()-1;
+        int length = 0;
+        // iterate along excess white space until end of last word found
+        while (endPoint >= 0 && s[endPoint] == ' ') {
+            endPoint--;
+        }
+        // increment length until additional white space or start found
+        while (endPoint >= 0 && s[endPoint] != ' ') {
+            length++;
+            endPoint--;
+        }
+        return length;
+        
+        
+        
+        
+        
+        
+        // initial run:
+        //  iterate from start finding lengths of words
+        //  overwritting when a new word is found
+        //int length = 0;
+        //bool wordEnded = false;
+        //for (int i = 0 ; i < s.length() ; i++) {
+        //    if (s[i] == ' ') {
+        //        wordEnded = true;
+        //        continue;
+        //    }
+        //    else {
+        //        if (wordEnded == true) {
+        //            length = 0;
+        //            wordEnded = false;
+        //        }
+        //        length++;
+        //    }
+        //}
+        //return length;
+    }
+};

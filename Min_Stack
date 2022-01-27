@@ -1,0 +1,57 @@
+class MinStack {
+private:
+    // stacks to maintain what is in the stack and what is the min at any given time
+    ::stack<int> stack;
+    ::stack<int> minStk;
+public:
+    // no work needed, stacks are private
+    MinStack() {
+
+    }
+    
+    // add a value to the MinStack
+    void push(int val) {
+        // always add the value to the actual stack
+        stack.push(val);
+        
+        // if no min value yet, add it to min checker
+        if (minStk.empty()) {
+            minStk.push(val);
+        }
+        // see if new value is smaller and tack on if so
+        else {
+            if (minStk.top() > val) {
+                minStk.push(val);
+            }
+            // else add another of what is smallest
+            else {
+                minStk.push(minStk.top());
+            }
+        }
+    }
+    
+    // remove top of the stacks (both as we are keeping sizes the same via push)
+    void pop() {
+        stack.pop();
+        minStk.pop();
+    }
+    
+    // return the top of the stack
+    int top() {
+        return stack.top();
+    }
+    
+    // return the top of min stack
+    int getMin() {
+        return minStk.top();
+    }
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj->push(val);
+ * obj->pop();
+ * int param_3 = obj->top();
+ * int param_4 = obj->getMin();
+ */

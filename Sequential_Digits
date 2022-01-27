@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<int> sequentialDigits(int low, int high) {   
+        //initialize returning vector
+        vector<int> result;
+        
+        // loop through left most digits
+        for (int i = 1; i <= 9; i++) {
+            // initialize a comparative value based on left most digit
+            int value = i;
+            
+            // check for within range and append if so
+            if (value >= low && value <= high) {
+                result.push_back(value);
+            }
+            
+            // loop through following digits
+            for (int j = i + 1; j <=9; j++) {
+                // shift comparative value left and tack on next digit
+                value = value*10 + j;
+                
+                // break out early as too large anyway
+                if (value > high) {
+                    break;
+                }
+                
+                // check for within range and append if so
+                if (value >= low && value <= high) {
+                    result.push_back(value);
+                }
+            }
+        }
+        
+        // sort result and return
+        sort(result.begin(), result.end());
+        return result;
+    }
+};

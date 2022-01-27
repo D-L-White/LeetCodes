@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        // check to make sure within range of sorted array
+        if (target <= nums[0]) {
+            return 0;
+        }
+        else if (target > nums[nums.size()-1]) {
+            return nums.size();
+        }
+        else if (target == nums[nums.size()-1]) {
+            return nums.size()-1;
+        }
+        
+        for (int i = 0; i < nums.size() - 1 ; i++) {
+            //check if value found
+            if (nums[i] == target) {
+                return i;
+            }
+            // check if value would be put between current check and next
+            else if (target > nums[i] && target <= nums[i+1]) {
+                return i+1;
+            }
+        }
+        return nums.size();
+    }
+};

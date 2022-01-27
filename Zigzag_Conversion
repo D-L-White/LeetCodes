@@ -1,0 +1,44 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        // check to see if split even necessary
+        if (numRows < 2) {
+            return s;
+        }
+        
+        // initialize result
+        string result;
+        
+        // loop through the rows needed - calculate which letters fall into that row
+        for (int row = 0; row < numRows; row++) {
+            // initialize iterator for that row and boolean check for diagonal
+            int i = row;
+            bool diagonal = true;
+            
+            // iterate through length of string given for all valid in given row
+            while (i < s.length()) {
+                // append latest for given row to result
+                result +=s[i];
+                
+                // top and bottom rows iterate only through their needed columns
+                if (row == 0 || row == numRows-1) {
+                    i += (2 * numRows - 2);
+                }
+                // not top or bottom row
+                else {
+                    // check if next will be diagonal for next index for row
+                    if (diagonal) {
+                        i += (2 * (numRows - row) - 2);
+                    }
+                    else {
+                        i += 2 * row;
+                    }
+                    // only one diagnonal allowed between columns
+                    diagonal != diagonal;
+                }
+            }
+        }
+        
+        return result;
+    }
+};

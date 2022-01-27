@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int climbStairs(int n) {
+        // array to cache counts for reaching each stair checked so far
+        int results[n+1];
+        int temp = 0;
+        // base case of single stair
+        results[0] = 1;
+        // loop through rest of stairs
+        for (int i = 1; i <=n; i++) {
+            // use values of reaching from previous and 2 before to reach current stair
+            int a = i - 3;
+            int b = i - 1;
+            if (a >= 0) {
+                temp -= results[a];
+            }
+            temp += results[b];
+            results[i] = temp;
+        }
+        return results[n];
+    }
+};

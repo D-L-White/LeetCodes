@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int position = 0;
+        int lastViable = nums.size();
+        
+        // traverse vector until we've reached point where no more could be the value to remove
+        while (position < lastViable) {
+            // bring forward potentially viable from end if current location is value to remove and update values
+            if (nums[position] == val) {
+                nums[position] = nums [lastViable-1];
+                lastViable--;
+            }
+            // move forward position being checked if not target value
+            else {
+                position++;
+            } 
+        }
+        
+        // return how many values are left of cleared section
+        return lastViable;
+    }
+};
