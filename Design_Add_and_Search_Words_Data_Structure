@@ -1,0 +1,81 @@
+// TrieNode to hold subsequent characters for provided word and if it is the end of a word
+class TrieNode {
+public:
+    // valid end of a word at this node
+    bool isEnd;
+    // array to hold subsequen letters
+    TrieNode* children[26];
+    // instantiate as not the end of a word and NULL out the full array of children
+    TrieNode() {
+        isEnd = false;
+        memset(children, NULL, sizeof(children));
+    }
+};
+
+class WordDictionary {
+public:
+    // root for the dictionary
+    TrieNode* root;
+    WordDictionary() {
+        // dictionary is just a single node with 26 empty children
+        root = new TrieNode();
+    }
+    
+    void addWord(string word) {
+        // pointer to walk along the nodes following this (the root)
+        TrieNode *temp = root;
+         // iterate through the provided word
+        for (int i = 0; i < word.length(); i++) {
+            // if there is no node at the given letter (use char manipulation to get index)
+            if (!temp->children[word[i] - 'a']) {
+                // set up a new node
+                temp->children[word[i] - 'a'] = new TrieNode();
+            }
+            // move to the next node
+            temp = temp->children[word[i] - 'a'];
+        }
+        // set the last letter's node to be a valid end of a word
+        temp->isEnd = true;
+    }
+    
+    bool search(string word) {
+        // use helper to be able to continue from a given position to account for '.'
+        return search2(word.c_str(), root);
+    }
+    
+    bool search2(const char* word, TrieNode* node) {
+        // iterate through provided word while still having valid nodes
+        for (int i = 0; word[i] && node; i++) {
+            // if it's not a '.' wildcard, move to next character's node
+            if (word[i] != '.') {
+                // ends at next for loop if node becomes NULL due to no such character
+                node = node->children[word[i] - 'a'];
+            }
+            // else need to accomidate '.' wildcard
+            else {
+                // set up a temp node for our current position
+                TrieNode* temp = node;
+                // check all potential children
+                for (int j = 0; j < 26; j++) {
+                    // if it's NULL, doesn't get through for loop and returns false
+                    //  if it's not NULL, we continue with this helper at the next letter's position and it's associated node
+                    node = temp->children[j];
+                    if (search2(word + i + 1, node)) {
+                        // return true if reached end of the word in subsequent helper calls
+                        return true;
+                    }
+                }
+            }
+        }
+        // iterated through entire word by here
+        //  return true if the node is there and it is a valid end point
+        return node && node->isEnd;
+    }
+};
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary* obj = new WordDictionary();
+ * obj->addWord(word);
+ * bool param_2 = obj->search(word);
+ */
