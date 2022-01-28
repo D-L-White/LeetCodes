@@ -1,0 +1,147 @@
+class Trie {
+public:
+    Trie() {}
+
+    void insert(string word) {
+        // pointer to walk along the nodes following this (the root)
+        Trie* temp = this;
+         // iterate through the provided word
+        for (int i = 0; i < word.length(); i++) {
+            // check if next letter of word is in the map with its own associated trie path
+            if (!temp->next.count(word[i])) {
+                // if not yet in the trie, add a new node
+                temp->next[word[i]] = new Trie();
+            }
+            // move along to next node for next letter
+            temp = temp->next[word[i]];
+        }
+        // set end of word to be true
+        temp->isEnd = true;
+    }
+
+    bool search(string word) {
+        // pointer to walk along the nodes following this (the root)
+        Trie* temp = this;
+         // iterate through the provided word
+        for (int i = 0; i < word.length(); i++) {
+            // if next letter is not found return false
+            if (!temp->next.count(word[i])) {
+                return false;
+            }
+            // move to next letter's node for next check
+            temp = temp->next[word[i]];
+        }
+        // at end of checked word, see if this is a full word
+        return temp->isEnd;
+    }
+
+    bool startsWith(string prefix) {
+        // pointer to walk along the nodes following this (the root)
+        Trie* temp = this;
+         // iterate through the provided prefix
+        for (int i = 0; i < prefix.length(); i++) {
+            // if next letter is not found return false
+            if (!temp->next.count(prefix[i])) {
+                return false;
+            }
+            // move to next letter's node for next check
+            temp = temp->next[prefix[i]];
+        }
+        // entire prefix found
+        return true;
+    }
+
+private:
+    // map to hold all following nodes paired with their characters
+    map<char, Trie*> next = {};
+    // bool to hold if this is the end of a valid word
+    bool isEnd = false;
+};
+
+
+
+//  First attempt below
+//    failed 1 of 15 checks (strange long single letter startswith search)
+//
+//// trienode class for storing the data
+//class TrieNode {
+//public:
+//    // map to hold any character and subsequent nodes and their characters
+//    unordered_map<char, TrieNode*> map;
+//    // bool to denote this node to be the end of a valid word
+//    bool isEnd;
+//    // instantiate nodes as the end of a word
+//    TrieNode() {
+//        isEnd = false;
+//    }
+//};
+//
+//class Trie {
+//public:
+//    // root for the Trie
+//    TrieNode *root;
+//    
+//    // instantiate Trie to be a single node
+//    Trie() {
+//        root = new TrieNode();
+//    }
+//    
+//    void insert(string word) {
+//        // temp node to walk the tree with
+//        TrieNode *temp = root;
+//        // iterate through the provided word
+//        for (int i = 0; i < word.length(); i++) {
+//            // if find iterator reaches end of map without finding the next letter
+//            if (temp->map.find(word[i]) == temp->map.end()) {
+//                // map a new node to the current letter node
+//                temp->map[word[i]] = new TrieNode();
+//            }
+//            // move temp node along for next check/addition
+//            temp = temp->map[word[i]];
+//        }
+//        // set final node as a successful end of a word
+//        temp->isEnd = true;
+//    }
+//    
+//    bool search(string word) {
+//        // temp node to walk the tree with
+//        TrieNode *temp = root;
+//        // iterate throug the provided word
+//        for (int i = 0; i < word.length(); i++) {
+//            // if find iterator reached end of map without finding the next letter
+//            if (temp->map.find(word[i]) == temp->map.end()) {
+//                // word was not found
+//                return false;
+//            }
+//            // continue on with next letter if previous letter found
+//            temp = temp->map[word[i]];
+//        }
+//        // check to make sure the ending TrieNode states it completes a valid word
+//        return temp->isEnd;
+//    }
+//    
+//    bool startsWith(string prefix) {
+//        // temp node to walk the tree with
+//        TrieNode *temp = root;
+//        // iterate throug the provided prefix
+//        for (int i = 0; i < prefix[i]; i++) {
+//            // if find iterator reached end of map without finding the next letter
+//            if (temp->map.find(prefix[i]) == temp->map.end()) {
+//                // prefix was not found
+//                return false;
+//            }
+//            // continue on with next letter if previous letter found
+//            temp = temp->map[prefix[i]];
+//        }
+//        // return true as all letters of prefix were found
+//        return true;
+//    }
+//};
+
+/**
+ * Your Trie object will be instantiated and called as such:
+ * Trie* obj = new Trie();
+ * obj->insert(word);
+ * bool param_2 = obj->search(word);
+ * bool param_3 = obj->startsWith(prefix);
+ */
