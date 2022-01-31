@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int sumBase(int n, int k) {
+        // total running sum
+        int sum = 0;
+        // while there are more digits to convert to new base and add to sum
+        while (n != 0) {
+            // add least significant of new base
+            sum += n%k;
+            // continue change from base 10 to new base
+            n = n/k;
+        }
+        return sum;
+    }
+};
