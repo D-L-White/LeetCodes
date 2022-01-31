@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int totalMoney(int n) {
+        // return value and how many full weeks this will be done for
+        int total = 0;
+        int weeks = n / 7;
+        // each full week gains 7 * (3 + week number) on top of what was gained from previous week
+        for (int i = 1; i <= weeks; i++) {
+            total += 7 * (i + 3);
+        }
+        // clear out residual not full week days
+        for (int  i = 7*weeks; i < n; i++) {
+            total += ++weeks;
+        }
+        return total;
+    }
+};
