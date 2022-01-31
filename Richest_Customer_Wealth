@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int maximumWealth(vector<vector<int>>& accounts) {
+        // can set up a vector if want to know which one has what wealth
+        //vector<int> wealthTotal;
+        
+        // tracking of max wealth
+        int maxWealth = 0;
+        
+        // loop through each customer in the matrix
+        for (int i = 0; i < accounts.size(); i++) {
+            // count their wealth adding  it to a total
+            int wealth = 0;
+            for (int j = 0 ; j < accounts[i].size(); j++) {
+                wealth += accounts[i][j];
+            }
+            // check if current customer's wealth is more than the previous maximum
+            if (wealth > maxWealth) {
+                maxWealth = wealth;
+            }
+            
+            // for use if tracking which one has what wealth
+            //wealthTotal.push_back(wealth);
+        }
+        return maxWealth;
+    }
+};
