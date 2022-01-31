@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maxCoins(vector<int>& piles) {
+        // sort piles for ease of problem
+        //  always plan to have two largest and the smallest piles chosen as the 3 being split
+        //  always will take the second largest
+        sort(piles.begin(), piles.end());
+        // count of how many times we can split the pot
+        int triPiles = piles.size()/3;
+        // tally of my coins
+        int myCoins = 0;
+        // the pile position I'll be taking
+        int myPile = 2;
+        // loop through the process of divvying up
+        for (int i = 0; i < triPiles; i++) {
+            // add my pile to my count (no need to do anything with the others)
+            myCoins += piles[piles.size() - myPile];
+            // move which will be my pile in the sorted list to the next one
+            myPile += 2;
+        }
+        // return my count of coins
+        return myCoins;
+    }
+};
