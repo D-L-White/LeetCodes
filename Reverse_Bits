@@ -1,0 +1,39 @@
+class Solution {
+public:
+    uint32_t reverseBits(uint32_t n) {
+        // for holding result and a mask of 00[...]0001
+        uint32_t result = 0;
+        uint32_t mask = 1;
+        
+        // check each bit for updating result
+        for(int i = 0; i < 32; i++) {
+            // if there is a 1 in the first bit
+            if (n & mask > 0) {
+                // update result to have a 1 in the opposite of where that would be
+                result = result | mask << 31-i;
+            }
+            // shift n right to check next bit
+            n = n >> 1;
+        }
+        
+        return result;
+        
+        
+        
+        // faster method via swapping
+        //
+        // convert to bitset
+        //bitset<32> x(n);
+        //
+        // loop through half of the bit set 
+        //for(int i=0; i<16; ++i) {
+        //    // get left position and cache its bit
+        //    int q = 31-i, b = x[i];
+        //    // swap their bits and put back cached bit
+        //    x[i]  = x[q];
+        //    x[q]  = b;
+        //}
+        // convert back and return
+        //return x.to_ulong();
+    }
+};
