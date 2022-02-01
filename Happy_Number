@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool isHappy(int n) {
+        // map to hold values we've seen before
+        map<int,int> beenHere;
+        // while we haven't seen this value
+        while(!beenHere.count(n)) {
+            // temp int for post squared result
+            int newNum = 0;
+            // note having seen this number
+            beenHere.insert({n,1});
+            // take least significant digit and square it over and over until aquire new number
+            while (n > 0) {
+                int digit = n % 10;
+                n = n / 10;
+                newNum += pow(digit, 2);
+            }
+            // cache this number
+            n = newNum;
+            // exit out if it's 1
+            if (n == 1) {
+                break;
+            }
+        }
+        // return if we ended at 1 or if we exited loop due to seeing n again
+        return n == 1;
+    }
+};
