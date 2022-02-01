@@ -1,0 +1,17 @@
+class Solution {
+public:
+    void duplicateZeros(vector<int>& arr) {
+        // loop through array
+        for (int i = 0; i < arr.size(); i++) {
+            // if a 0 found
+            if (arr[i] == 0) {
+                // remove last element
+                arr.pop_back();
+                // insert an additional 0
+                arr.insert(arr.begin() + i, 0);
+                // skipp over the just added 0
+                i++;
+            }
+        }
+    }
+};
