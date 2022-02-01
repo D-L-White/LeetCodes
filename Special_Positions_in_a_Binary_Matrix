@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int numSpecial(vector<vector<int>>& mat) {
+        // vectors to hold total number of 1s in each column or row
+        vector<int> rowSum(mat.size());
+        vector<int> colSum(mat[0].size());
+        
+        // tally of "special positions"
+        int total = 0;
+        
+        // find all 1s and note them in vectors
+        for (int i = 0; i < mat.size(); i++) {
+            for (int j = 0; j < mat[i].size(); j++) {
+                rowSum[i] += mat[i][j];
+                colSum[j] += mat[i][j];
+            }
+        }
+        
+        // check through rows
+        for (int i = 0; i < mat.size(); i++) {
+            // only if they are applicable
+            if (rowSum[i] == 1) {
+                // check for other 1s in columns
+                for (int j = 0; j < mat[i].size(); j++) {
+                    if(colSum[j] == 1 && mat[i][j] == 1) {
+                        total++;
+                        break;
+                    }
+                }
+            }
+        }
+        return total;
+    }
+};
