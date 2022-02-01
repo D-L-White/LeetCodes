@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int numWaterBottles(int numBottles, int numExchange) {
+        // counts of total drank and residual empties post latest exchange
+        int total = numBottles;
+        int residualBottles = 0;
+        // while we'll have more bottles to exchange
+        while ((numBottles + residualBottles) >= numExchange) {
+            // residual bottles post upcoming exchange
+            residualBottles += numBottles % numExchange;
+            // number of bottles for this exchange
+            numBottles = numBottles/numExchange;
+            // if residual holds enough for an exchange
+            if ((residualBottles / numExchange) > 0) {
+                // increase the bottles for current exchange
+                numBottles += (residualBottles / numExchange);
+                // get next residual amount
+                residualBottles = residualBottles % numExchange;
+            }
+            // update how many drank
+            total += numBottles;
+        }
+        // return total
+        return total;
+        
+        
+        // simplified mathematic solution via geometric series
+        // return ((numBottles + (numBottles-1)/(numExchange-1));
+    }
+};
