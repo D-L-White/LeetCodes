@@ -1,0 +1,46 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        // cache constants of sting lengths and keep track of result
+        int pLength = p.length();
+        int sLength = s.length();
+        vector<int> result;
+        
+        // if substring is larger than main string, return the empty vector
+        if (sLength < pLength) {
+            return result;
+        }
+        
+        // vectors to hold counts of letters
+        //  substring letter count
+        vector<int> pLetters(26,0);
+        //  current main string substring being checked
+        vector<int> sLetters(26,0);
+        
+        // get counts of letters from both strings for length of substring
+        for (int i = 0; i < pLength; i++) {
+            pLetters[p[i] - 'a']++;
+            sLetters[s[i] - 'a']++;
+        }
+        
+        // if arrays match, there is a substring anagram starting at main string [0]
+        if (pLetters == sLetters) {
+            result.push_back(0);
+        }
+        
+        // use sliding window to check rest of main string
+        for (int i = pLength; i < sLength; i++) {
+            // decrement letter count for character that just moved out of window
+            sLetters[s[i-pLength] - 'a']--;
+            // increment letter count for character that just moved into window
+            sLetters[s[i] - 'a']++;
+            // compare letter counts for newly positioned window
+            if (pLetters == sLetters) {
+                // add to result the start of this window
+                result.push_back(i - pLength + 1);
+            }
+        }
+        
+        return result;
+    }
+};
