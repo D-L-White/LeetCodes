@@ -1,0 +1,22 @@
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        // map to hold values so far seen
+        unordered_map<int, int> foundNums;
+        
+        // loop through the provided array
+        for (int i = 0; i < nums.size(); i++) {
+            // if this position's number has been seen before
+            if (foundNums.count(nums[i]) > 0) {
+                return true;
+            }
+            // if not seen, add it to the map
+            else {
+                foundNums.emplace(nums[i], 1);
+            }
+        }
+        
+        // got through without seeing a duplicate
+        return false;
+    }
+};
