@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+        // counter and mask for checking bits
+        int count = 0;
+        int mask = 1;
+        
+        // loop through provided integer
+        for (int i = 0; i < 32; i++) {
+            // if integer has no more 1s bits, exit early
+            if (n == 0) {
+                break;
+            }
+            // if there is a 1 in the 1s position, increment count
+            if (n & mask > 0) {
+                count++;
+            }
+            // shift n over one to check for next bit
+            n = n >> 1;
+        }
+        // return our count
+        return count;
+    }
+};
