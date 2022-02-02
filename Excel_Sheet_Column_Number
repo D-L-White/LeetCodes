@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int titleToNumber(string columnTitle) {
+        // instantiate total as 0 (to stop overflow of first loop)
+        int total = 0;
+        
+        // loop through all characters of columnTitle
+        //  starting with most significant so multiply total by 26 each entry into loop
+        for (int i = 0; i < columnTitle.length(); i++) {
+            total *= 26;
+            // ASCII adjustment
+            total += columnTitle[i] - 'A' + 1;
+        }
+        
+        return total;
+    }
+};
