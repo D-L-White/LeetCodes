@@ -1,0 +1,86 @@
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        // sort vector for simplified iteration in helpers
+        sort(nums.begin(), nums.end());
+        // pass vector along to helpers that can solve proplem for k values sum problem
+        return kSum(nums, target, 0, 4);
+    }
+    
+    // helper to recurse down to a two sum and hand back matching pairs
+    vector<vector<int>> kSum(vector<int>& nums, int target, int start, int kValue) {
+        vector<vector<int>> result;
+        
+        // check if past array
+        if (start == nums.size()) {
+            return result;
+        }
+        
+        // get average value allowed for future numbers for sum
+        int averageValue = target / kValue;
+        
+        // no further possibilities if smallest is larger
+        //  or largest is smaller than the average
+        if (nums[start] > averageValue || averageValue > nums.back()) {
+            return result;
+        }
+        
+        // if two values needed, get pair that will sum to target
+        if (kValue == 2) {
+            return twoSum(nums, target, start);
+        }
+        
+        // iterate through array
+        for (int i = start; i < nums.size(); i++) {
+            // only recurse if this is starting value or the value isn't done previously
+            if (i == start || nums[i - 1] != nums[i]) {
+                // recursively get smaller sets that build into k - 1 sized sets
+                //  will not perform for current if there are not valid subsets handed back
+                for (vector<int>& subset : kSum(nums, target - nums[i], i + 1, kValue - 1)) {
+                    // append current number to results
+                    result.push_back({nums[i]});
+                    // append subset to current number at end of result
+                    result.back().insert(end(result.back()), begin(subset), end(subset));
+                }
+            }
+        }
+        
+        // return all pairings
+        return result;
+    }
+    
+    // helper to find pair of numbers that sum to target
+    vector<vector<int>> twoSum(vector<int>& nums, int target, int start) {
+        // vector to hold result in proper format
+        vector<vector<int>> result;
+        // low and high for window being checked
+        int low = start;
+        int high = nums.size() - 1;
+        
+        // loop until pass eachother
+        while (low < high) {
+            // sum for checking against target
+            int currentSum = nums[low] + nums[high];
+            // low too low as current sum less than needed
+            //  || to pass over already used numbers
+            if (currentSum < target || (low > start && nums[low] == nums[low -1])) {
+                low++;
+            }
+            // high too high as current sum higher than needed
+            //  || to pass over already used numbers
+            else if (currentSum > target || (high < nums.size() - 1 && nums[high] == nums[high + 1])) {
+                high--;
+            }
+            // sum matches target
+            else {
+                // append valid pair and increment/decrement past used numbers
+                result.push_back({nums[low], nums[high]});
+                low++;
+                high--;
+            }
+        }
+        
+        // return all valid pairings
+        return result;
+    }
+};
