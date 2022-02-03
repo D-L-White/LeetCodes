@@ -1,0 +1,55 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        // base case empty vector
+        vector<vector<int>> result;
+        if (nums.size() == 0) {
+            return result;
+        }
+        
+        // sort given vector
+        sort(nums.begin(), nums.end());
+        
+        // loop through sorted vector
+        for (int i = 0; i < nums.size(); i++) {
+            // initialize current position, left position, and right position
+            int target = -nums[i];
+            int left = i + 1;
+            int right = nums.size() - 1;
+            
+            // check for left right pairs until pass eachother
+            while (left < right) {
+                int sum = nums[left] + nums[right];
+                // too small, increase left value for next check
+                if (sum < target) {
+                    left++;
+                }
+                // too big, decrease right value for next check
+                else if (sum > target) {
+                    right--;
+                }
+                // just right pairing for current position
+                else {
+                    // create and add result to returning vector
+                    vector<int> latest = {nums[i], nums[left], nums[right]};
+                    result.push_back({nums[i], nums[left], nums[right]});
+                    // move left forward until no longer same value as just used
+                    while (left < right && nums[left] == latest[1]) {
+                        left++;
+                    }
+                    // move right backwards until no longer same value as just used
+                    while (left < right && nums[right] == latest[2]) {
+                        right--;
+                    }
+                }
+            }
+            
+            // get past any of first value used
+            while (i + 1 < nums.size() && nums[i + 1] == nums[i]) {
+                i++;
+            }
+        }
+
+        return result;
+    }
+};
