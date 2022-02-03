@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int missingNumber(vector<int>& nums) {
+        // end result begins with highest number that might be in array
+        int result = nums.size();
+                
+        // loop through array XORing all the numbers
+        //  XORing the same number twice (most that will occur) zeroes them out leaving only number not included
+        for (int i = 0, eachNum = 0; i < nums.size(); eachNum++, i++) {
+            // XOR current number
+            result ^= nums[i];
+            // XOR each potential number
+            result ^= eachNum;
+        }
+        
+        return result;
+    }
+};
