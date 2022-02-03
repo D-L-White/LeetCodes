@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int fourSumCount(vector<int>& nums1, vector<int>& nums2, vector<int>& nums3, vector<int>& nums4) {
+        // map for holding sum of all paired values in two arrays
+        unordered_map<int,int> mapOneAndTwo;
+        // count of how many pairs of pairs equal 0
+        int result = 0;
+        
+        // loop through all pairs of numbers in two arrays
+        for (int i = 0; i < nums1.size(); i++) {
+            for (int j = 0; j < nums2.size(); j++) {
+                // fill map with their sums
+                mapOneAndTwo[nums1[i] + nums2[j]]++;
+            }
+        }
+        
+        // loop through all pairs of numbers in other two arrays
+        for (int i = 0; i < nums3.size(); i++) {
+            for (int j = 0; j < nums4.size(); j++) {
+                // increment for all sums of pairs that is inverse of sums in map
+                result += mapOneAndTwo[-(nums3[i] + nums4[j])];
+            }
+        }
+        
+        // return count of inverse sums found
+        return result;
+    }
+};
