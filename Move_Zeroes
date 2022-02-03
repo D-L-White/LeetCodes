@@ -1,0 +1,16 @@
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        // loop through entire array taking note where first zero is
+        for (int firstZero = 0, i = 0; i < nums.size(); i++) {
+            // find a legit number
+            if (nums[i] != 0) {
+                // swap it to the front of any zeroes found
+                swap(nums[firstZero], nums[i]);
+                // move location of the first zero
+                //  with no zeroes, this just swaps with itself
+                firstZero++;
+            }
+        }    
+    }
+};
