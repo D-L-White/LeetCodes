@@ -1,0 +1,61 @@
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) {
+        // vector to hold end result
+        vector<string> result;
+        
+        // map to hold pairs of value and its word pairing
+        map<int, string> fbMappings;
+        fbMappings.emplace(3, "Fizz");
+        fbMappings.emplace(5, "Buzz");
+        
+        // loop through all values
+        for (int i = 1; i <= n; i++) {
+            // blank string to hold accumulated result for current value
+            string iStringResult = "";
+            
+            // loop through map checking its values
+            for (auto key : fbMappings) {
+                // if divisible by the key
+                if (i % key.first == 0) {
+                    // append word pairing to accumulated result
+                    iStringResult += key.second;
+                }
+            }
+            
+            // no divisible keys used
+            if (!iStringResult.compare("")) {
+                // append current value
+                iStringResult += to_string(i);
+            }
+            
+            // attach this values result to master set of results
+            result.push_back(iStringResult);
+        }
+        
+        
+        // brute force method
+        //
+        // loop through all values
+        //for (int i = 1; i <= n; i++) {
+        //    // divisible by both
+        //    if (i % 3 == 0 && i % 5 == 0) {
+        //        result.push_back("FizzBuzz");
+        //    }
+        //    // divisible only by 3
+        //    else if (i % 3 == 0) {
+        //        result.push_back("Fizz");
+        //    }
+        //    // divisible only by 5
+        //    else if (i % 5 == 0) {
+        //        result.push_back("Buzz");
+        //    }
+        //    // not divisible by 3 or 5
+        //    else {
+        //        result.push_back(to_string(i));
+        //    }
+        //}
+        
+        return result;
+    }
+};
