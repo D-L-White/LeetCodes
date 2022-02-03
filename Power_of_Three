@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool isPowerOfThree(int n) {
+        // make sure it's big enough to use
+        if (n < 1) {
+            return false;
+        }
+        
+        // loop dividing by three until cannot do so without a remainder
+        while (n % 3 == 0) {
+            n/= 3;
+        }
+        
+        // return if we got down to 1
+        return n == 1;
+    }
+};
