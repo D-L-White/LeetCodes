@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int findMaxLength(vector<int>& nums) {
+        // map for holding the "sum" of zeroes and ones through a keyed indexes
+        unordered_map<int,int> countMap;
+        // initial count for off the map and starting values
+        countMap.emplace(0, -1);
+        int subMax = 0;
+        int count = 0;
+        
+        // loop through array counting all the way
+        for (int i = 0; i < nums.size(); i++) {
+            // if 0, subtract from count
+            // if 1, add to count
+            count = count + (nums[i] == 1 ? 1 : -1);
+            // check if we've seen this count before
+            if (countMap.find(count) != countMap.end()){
+                // update max length of sub array if now  a higher difference between indexes
+                subMax = max(subMax, i - countMap[count]);
+            }
+            // haven't had this count before
+            else {
+                // add the count and at what index it occurred to map
+                countMap.emplace(count, i);
+            }
+        }
+        return subMax;
+    }
+};
