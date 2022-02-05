@@ -1,0 +1,74 @@
+class Solution {
+public:
+    // checking board
+    bool isValidSudoku(vector<vector<char>>& board) {
+        // check each [row][column] position
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                // if it's a digit, perform check
+                if (isdigit(board[i][j])) {
+                    // check the box for dupe
+                    bool check1 = checkBox(board, i, j, board[i][j]);
+                    // check the row for dupe
+                    bool check2 = checkRow(board, i, board[i][j]);
+                    // check the column for dupe
+                    bool check3 = checkCol(board, j, board[i][j]);
+                    // if any dupes, fail out
+                    if (check1 == false || check2 == false || check3 == false) {
+                        return false;
+                    }
+                }
+            }
+        }
+        // no dupes found
+        return true;
+    }
+    
+    // check the box
+    bool checkBox(vector<vector<char>>& board, int row, int col, char num) {
+        // keep track of how many of that char
+        int count = 0;
+        // loop through 3 rows and columns of box
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                // calculate top corner of box and work from there comparing
+                if (board[i + (row / 3) * 3][j + (col / 3) * 3] == num) {
+                    // increment count for each found
+                    count++;
+                }
+            }
+        }
+        // false if more than 1
+        return count == 1;
+    }
+    
+    // check the column
+    bool checkRow(vector<vector<char>>& board, int row, char num) {
+        // keep track of how many of that char
+        int count = 0;
+        // loop through the column
+        for (int i = 0; i < 9; i++) {
+            if (board[row][i] == num) {
+                // increment count for each found
+                count++;
+            }
+        }
+        // false if more that 1
+        return count == 1;
+    }
+    
+    // check the row
+    bool checkCol(vector<vector<char>>& board, int col, char num) {
+        // keep track of how many of that char
+        int count = 0;
+        // loop through the row
+        for (int i = 0; i < 9; i++) {
+            if (board[i][col] == num) {
+                // increment count for each found
+                count++;
+            }
+        }
+        // false if more than 1
+        return count == 1;
+    }
+};
