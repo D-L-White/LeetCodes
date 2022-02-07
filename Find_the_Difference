@@ -1,0 +1,60 @@
+class Solution {
+public:
+    char findTheDifference(string s, string t) {
+        // map to hold all characters in s and in t
+        map<char, int> sMap;
+        map<char, int> tMap;
+        // variable for returning what was added
+        char added;
+        
+        // iterate through s adding all used characters to map
+        for (int i = 0; i < s.length(); i++) {
+            sMap[s[i]]++;
+        }
+        
+        // iterate through t adding all used characters to map
+        for (int i = 0; i < t.length(); i++) {
+            tMap[t[i]]++;
+        }
+        
+        // iterate through t checking if the letters were used in s the same number of times
+        for (auto it : tMap) {
+            // prep for return and break out of loop when found
+            if(tMap[it.first] != sMap[it.first]) {
+                added = it.first;
+                break;
+            }
+        }
+        
+        return added;
+        
+        
+        
+        //// letter array method
+        ////  would need array size alterations for more characters
+        //
+        //// vector to hold counts for each letter
+        //vector<int> letterMap(26, 0);
+        //// parse s for how many of each used
+        //for (auto c : s) {
+        //    letterMap[c - 'a']++;
+        //}
+        //// parse t subtracting each use
+        //for (auto c : t) {
+        //    // return out if there are no more of this one used
+        //    if (letterMap[c - 'a'] == 0) {
+        //        return c;
+        //    }
+        //    else {
+        //        letterMap[c - 'a']--;
+        //    }
+        //}
+        //// check for if there was one letter in s that was used again
+        //for (int i; i < 26; i++) {
+        //    if (letterMap[i] == 1) {
+        //        return i + 'a';
+        //    }
+        //}
+        //return ' ';
+    }
+};
