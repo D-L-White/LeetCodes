@@ -1,0 +1,35 @@
+class Solution {
+public:
+    double findMaxAverage(vector<int>& nums, int k) {
+        // variables to hold highest average value and window sum and average
+        double maxAverage;  //max sum throughough
+        double windowAverage = 0;  //window sum throughout
+        
+        // sub array larger than actual
+        if (nums.size() <= k) {
+            for(auto& num : nums) {
+                maxAverage += num;
+            }
+            return maxAverage / nums.size();
+        }
+        
+        // subarray smaller
+        for (int i = 0; i < k; i++) {
+            // find initial window sum
+            windowAverage += nums[i];
+        }
+        
+        // set initial average
+        maxAverage = windowAverage;
+        
+        // move window along
+        for (int i = k; i < nums.size(); i++) {
+            // subtract tail and add head to find if a new max sum
+            windowAverage += nums[i] - nums[i - k];
+            maxAverage = max(maxAverage, windowAverage);
+        }
+        
+        // return the average of the largest window
+        return maxAverage/k;
+    }
+};
