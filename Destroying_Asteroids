@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool asteroidsDestroyed(int mass, vector<int>& asteroids) {
+        // sort from smallest to largest
+        sort(asteroids.begin(), asteroids.end());
+        // long long used in order to overcome INT_MAX issue
+        long long longMass = mass;
+        
+        // as long as current mass is same or larger than the next asteroid (and there is a next one)
+        for (int i = 0; i < asteroids.size(); i++) {
+            // accumulate the asteroid mass and move to next one
+            if (longMass >= asteroids[i]) {
+                longMass += asteroids[i];
+            }
+            // mass was too small, planet destroyed
+            else {
+                return false;
+            }
+            // mass already larger than largest asteroid, can return early
+            if (longMass >= asteroids[asteroids.size()-1]) {
+                return true;
+            }
+        }
+        
+        return true;
+    }
+};
