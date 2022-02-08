@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int minimumDifference(vector<int>& nums, int k) {
+        sort(nums.begin(), nums.end());
+        
+        // base cases of single score
+        //  or more scores than actual
+        if (k < 2) {
+            return 0;
+        }
+        if (k >= nums.size()) {
+            return nums[nums.size() - 1] - nums[0];
+        }
+        
+        // find an initial difference for this size of window (k number of students)
+        int result = nums[k-1] - nums[0];
+        // loop window through all scores to find lowest difference
+        for (int i = k; i < nums.size(); i++) {
+            result = min(result, nums[i] - nums[i - k + 1]);
+        }
+        
+        return result;
+    }
+};
