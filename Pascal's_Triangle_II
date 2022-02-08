@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> getRow(int rowIndex) {
+        // vector for holding end result
+        vector<vector<int>> result;
+        
+        // loop through the rows needed
+        for (int i = 0; i <= rowIndex; i++) {
+            // append a new row to the resulting vector one larger than previous
+            //  set all to 1 in order to ignore edges of triangle
+            result.push_back(vector<int>(i+1,1));
+            
+            // loop through new row
+            for (int j = 1; j < i; j++) {
+                // set cell in row to be sum of those above and left + above and right
+                result[i][j] = result[i-1][j-1] + result[i-1][j];
+            }
+        }
+        
+        // simply return the row required
+        return result[rowIndex];
+    }
+};
