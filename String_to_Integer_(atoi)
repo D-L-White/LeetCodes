@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int myAtoi(string s) {
+        // track the value, sign, and position in string
+        int result = 0;
+        int sign = 1;
+        int i = 0;
+        
+        // remove all whitespace at front
+        while (s[i] == ' ' && i < s.length()) {
+            i++;
+        }
+        
+        // check for sign reversal
+        if (s[i] == '-' && i < s.length()) {
+            sign = -1;
+            i++;
+        }
+        // or skip past the one provided
+        else if (s[i] == '+' && i < s.length()) {
+            i++;
+        }
+        
+        // loop through rest of string until not looking at a digit
+        while (isdigit(s[i]) && i < s.length()) {
+            // get the position's value
+            int digit = s[i] - '0';
+            // check for being out of bounds after the current digit being added
+            if ((result > INT_MAX / 10) || (result == INT_MAX / 10 && digit > INT_MAX % 10)) {
+                // return min or max depending on sign
+                return sign == 1 ? INT_MAX : INT_MIN;
+            }
+            // increase result by the digit value
+            result = result * 10 + digit;
+            // increment position
+            i++;
+        }
+        
+        // set proper sign and return
+        return sign * result;
+    }
+};
