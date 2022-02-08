@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int addDigits(int num) {
+        // digital root formula
+        if (num == 0) {
+            return 0;
+        }
+        if (num % 9 == 0) {
+            return 9;
+        }
+        return num % 9;
+        
+        
+        // brute method
+        //
+        //// outer loop block and current sum holder
+        //int sum = num;
+        //// loop until the sum is a single digit
+        //while (sum > 9) {
+        //    // clear for next iteration
+        //    sum = 0;
+        //    // loop through all of the number's digits
+        //    while (num > 0) {
+        //        // add each digit to the sum and clear it from num
+        //        sum+= num % 10;
+        //        num /= 10;
+        //    }
+        //    // update num to be the latest sum for next run
+        //    num = sum;
+        //}
+        //// return the single digit sum
+        //return sum;
+    }
+};
