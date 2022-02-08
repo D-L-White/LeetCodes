@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int getMinDistance(vector<int>& nums, int target, int start) {
+        // result to max to change via min() call
+        int result = INT_MAX;
+        
+        // loop through array for the target value
+        for (int i = 0; i < nums.size(); i++) {
+            if(nums[i] == target) {
+                // if found, check if a previous one was smaller
+                result = min(abs(i - start), result);
+            }
+        }
+        
+        return result;
+    }
+};
