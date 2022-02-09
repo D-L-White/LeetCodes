@@ -1,0 +1,11 @@
+class Solution {
+public:
+    bool rotateString(string s, string goal) {
+        string loop = s + s;
+        // make sure they're the same length and that goal is within s when it is a loop of itself
+        if (s.length() == goal.length() && loop.find(goal) <= loop.length()) {
+            return true;
+        }
+        return false;
+    }
+};
