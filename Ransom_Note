@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        // create map of each letter in the magazine and their counts
+        map<char, int> magazineMap;
+        for (int i = 0; i < magazine.length(); i++) {
+            magazineMap[magazine[i]]++;
+        }
+        
+        // loop through ransom note checking for each letter
+        for (int i = 0; i < ransomNote.length(); i++) {
+            // must be in the map and have more letters available
+            if (magazineMap.find(ransomNote[i]) != magazineMap.end() && 
+                magazineMap[ransomNote[i]] > 0) {
+                // use one of the letters
+                magazineMap[ransomNote[i]]--;
+            }
+            // not there or out of them, return false
+            else {
+                return false;
+            }
+        }
+        
+        // got through the entire ransom note
+        return true;
+    }
+};
