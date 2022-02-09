@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int findPairs(vector<int>& nums, int k) {
+        // track total that do so
+        int result = 0;
+        
+        // get a mapping of each number and their count
+        map<int, int> numsCount;
+        
+        // fill map
+        for (int i = 0; i < nums.size(); i++) {
+            numsCount[nums[i]]++;
+        }
+        
+        // check each number
+        for (auto num : numsCount) {
+            // add to result for k == 0 if we had more than one of it
+            if (k == 0) {
+                if (num.second > 1) {
+                    result++;
+                }
+            }
+            // add to result if we can find number + k
+            else if (numsCount.find(num.first + k) != numsCount.end()) {
+                result++;
+            }
+        }
+        
+        
+        // brute apporach
+        //  doesn't work with k == 0
+        //// sort and only keep the unique numbers
+        //sort(nums.begin(), nums.end());
+        //nums.erase(unique(nums.begin(), nums.end()), nums.end());
+        //// loop each pair
+        //for (int i = 0; i < nums.size() - 1; i++) {
+        //    for (int j = i + 1; j < nums.size(); j++) {
+        //        // check if subtracting either from the other == k
+        //        if (abs(nums[i] - nums[j]) == k || abs(nums[j] - nums[i]) == k) {
+        //            // increment if so
+        //            result++;
+        //        }
+        //    }
+        //}
+        return result;
+    }
+};
