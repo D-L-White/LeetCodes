@@ -1,0 +1,40 @@
+class Solution {
+public:
+    string capitalizeTitle(string title) {
+        // to hold final title
+        string result = "";
+        // to hold split original title for processing
+        vector<string> splitTitle;
+        // split title for processing
+        tokenize(title, ' ', splitTitle);
+        
+        // loop through all words
+        for (auto word : splitTitle) {
+            // make entirely lowercase
+            transform(word.begin(), word.end(), word.begin(), [](unsigned char c){return tolower(c);});
+            // if longer than 2 letters, make first letter uppercase
+            if (word.length() > 2) {
+                word[0] = toupper(word[0]);
+            }
+            // append to final title with space to separate next word
+            result += word + " ";
+        }
+        
+        // remove final whitespace and return
+        result.pop_back();
+        return result;
+    }
+    
+    // helper function for separating a string by a provided delimiter and putting the result into a provided vector
+    void tokenize(string const &str, const char delimiter, vector<string> &out) {
+        // construct a stream from the string
+        stringstream ss(str);
+        // to hold each word
+        string s;
+        // process the stream for each subset split by delimiter
+        while (getline(ss, s, delimiter)) {
+            // append entire latest word to provided vector
+            out.push_back(s);
+        }
+    }
+};
