@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int findPoisonedDuration(vector<int>& timeSeries, int duration) {
+        // no attacks or no poison duration means never poisoned
+        if (timeSeries.size() == 0 || duration == 0) {
+            return 0;
+        }
+        
+        // total count of time poisoned
+        int result = 0;
+        
+        // loop through each attack
+        for (int i = 0; i < timeSeries.size() - 1; i++) {
+            // if poision will not go through entire duration
+            if (timeSeries[i + 1] - timeSeries[i] < duration) {
+                // increase time poisoned by the time between attacks
+                result += timeSeries[i + 1] - timeSeries[i];
+            }
+            // poison will run course before next attack
+            else {
+                // increase by full duration
+                result += duration;
+            }
+        }
+        
+        // return result so far + one last duration for last attack
+        return result + duration;
+    }
+};
