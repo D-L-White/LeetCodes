@@ -1,0 +1,31 @@
+class Solution {
+public:
+    string makeFancyString(string s) {
+        // final string once processed
+        string result = "";
+        // count of how many of same characters seen so far
+        int count = 1;
+        // initial letter used (counted as well)
+        result.push_back(s[0]);
+        
+        // loop through rest of string
+        for (int i = 1; i < s.length(); i++) {
+            // check if we've seen this letter as previous
+            if (s[i] == s[i - 1]) {
+                // increase count if seen
+                count++;
+            }
+            else {
+                // set as first seen if a new letter
+                count = 1;
+            }
+            
+            // add the letter to result if haven't seen 3 fo them in a row
+            if (count < 3) {
+                result.push_back(s[i]);
+            }
+        }
+        
+        return result;
+    }
+};
