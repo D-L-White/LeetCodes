@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int minPairSum(vector<int>& nums) {
+        // hold maximum of sum of pairs
+        int result = 0;
+        // sort nums in order to take smallest and largest at a time
+        sort(nums.begin(), nums.end());
+        
+        // loop through front half of array (lowest first) and pair with second half (highest first)
+        for (int i = 0; i < nums.size()/2; i++) {
+            // check if newest result is higher than previous highest
+            result = max(result, nums[i] + nums[nums.size() - 1 - i]);
+        }
+        
+        return result;
+    }
+};
