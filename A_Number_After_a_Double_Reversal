@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool isSameAfterReversals(int num) {
+        // check edge case of 0
+        if (num == 0) {
+            return true;
+        }
+        
+        // check if a leading 0 post initial reversal will lead to shortening the number
+        if (num % 10 == 0) {
+            return false;
+        }
+        
+        // else it'll double reverse to be the same
+        return true;
+    }
+};
