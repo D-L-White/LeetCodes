@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        // hold count of valid windows and the rolling sum
+        int result = 0;
+        int sum = 0;
+        
+        // map to hold sums and their counts
+        map<int, int> windowSum;
+        // initial sum zero for first time we hit sum - k == 0
+        windowSum[0]++;
+        
+        // loop through array finding accumulated sum
+        for (int i = 0; i < nums.size(); i++) {
+            sum += nums[i];
+            // if we've seen this sum - k before, increase the count of windows by how many times we've seen it
+            if (windowSum.find(sum - k) != windowSum.end()) {
+                result += windowSum[sum - k];
+            }
+            // increment or add this sum in the map
+            windowSum[sum]++;
+        }
+        
+        return result;
+    }
+};
