@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int countWords(vector<string>& words1, vector<string>& words2) {
+        // make words1 be the shorter array to speed up final looping of maps
+        if (words2.size() < words1.size()) {
+            return countWords(words2, words1);
+        }
+        // maps for all words in each array and their counts
+        map<string, int> map1;
+        map<string, int> map2;
+        // end count
+        int result = 0;
+        
+        // map out each array with the count of their words
+        for (string word : words1){
+            map1[word]++;
+        }
+        for (string word : words2){
+            map2[word]++;
+        }
+        
+        // loop through first map
+        for (auto word : map1){
+            // if only one occurrence of the word and it's also in the second map with a single occurrence
+            if (word.second == 1 && map2.find(word.first) != map2.end() && map2[word.first] == 1) {
+                // increase the count
+                result++;
+            }
+        }
+        
+        return result;
+    }
+};
