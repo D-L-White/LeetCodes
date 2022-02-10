@@ -1,0 +1,19 @@
+class Solution {
+public:
+    bool judgeCircle(string moves) {
+        // a map to count how many times moved in any direction
+        map<char, int> moveCounts;
+        
+        // get counts of each directional move
+        for(int i = 0; i < moves.length(); i++) {
+            moveCounts[moves[i]]++;
+        }
+        
+        // make sure moved up same count as down and left same count as right
+        if (moveCounts['U'] == moveCounts['D'] && moveCounts['L'] == moveCounts['R']) {
+            return true;
+        }
+        
+        return false;
+    }
+};
