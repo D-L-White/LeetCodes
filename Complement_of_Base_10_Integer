@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int bitwiseComplement(int n) {
+        // edge case
+        if (n == 0) {
+            return 1;
+        }
+        // track how many digits needed for mask
+        int binaryCount = 0;
+        // to be mask as well as temp for counting bits in n
+        int shiftCounterMask = n;
+        
+        // loop until no more bits
+        while (shiftCounterMask > 0) {
+            // count bits and move them off
+            binaryCount++;
+            shiftCounterMask = shiftCounterMask >> 1;
+        }
+        
+        // loop through count to make a mask same bit length as n 
+        while (binaryCount > 0) {
+            shiftCounterMask += 1 << binaryCount - 1;
+            binaryCount--;
+        }
+        
+        // return XOR of mask of n size and n
+        return shiftCounterMask ^ n;
+        
+    }
+};
