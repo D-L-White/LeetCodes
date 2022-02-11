@@ -1,0 +1,73 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {
+        // base root for compile
+        TreeNode* root = NULL;
+        // no root 1, return the root2 
+        if (root1 == NULL) {
+            return root2;
+        }
+        // no root 2, return the root 1
+        else if (root2 == NULL) {
+            return root1;
+        }
+        // combine them via roots
+        else {
+            // begin with a new root of the sum of both
+            root = new TreeNode(root1->val + root2->val);
+            // at least something to left, use helper to combine down the line
+            if (root1->left != NULL || root2->left != NULL) {
+                root->left = nodeHelper(root1->left, root2->left);
+            }
+            // at least something to right, use helper to combine down the line
+            if (root1->right != NULL || root2->right != NULL) {
+                root->right = nodeHelper(root1->right, root2->right);
+            }
+        }
+        
+        // return the root
+        return root;
+    }
+    
+    
+    // recursive helper to sum values at each node and return them up the chain
+    TreeNode* nodeHelper(TreeNode* node1, TreeNode* node2) {
+        // base node for compile
+        TreeNode* node = NULL;
+        // no node 1, return node 2
+        if (node1 == NULL) {
+            return node2;
+        }
+        // no node 2, return node 1
+        else if (node2 == NULL) {
+            return node1;
+        }
+        // combine them and move down the chain
+        else {
+            // combine for base node
+            node = new TreeNode(node1->val + node2->val);
+            // at least something to left, recurse further down
+            if (node1->left != NULL || node2->left != NULL) {
+                node->left = nodeHelper(node1->left, node2->left);
+            }
+            // at least something to right, recurse further down
+            if (node1->right != NULL || node2->right != NULL) {
+                node->right = nodeHelper(node1->right, node2->right);
+            }
+        }
+        
+        // return the node up the chain for build out
+        return node;
+    }
+};
