@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int findKthPositive(vector<int>& arr, int k) {
+        // initial number for first position checking
+        int missingNum = 1;
+        
+        // loop through entire array
+        for (int i = 0; i < arr.size();) {
+            // if we find the latest number being checked
+            if (arr[i] == missingNum) {
+                // move on to next number to check and next position to check
+                missingNum++;
+                i++;
+                continue;
+            }
+            // didn't find our number
+            //  move it along until the number being checked
+            while(missingNum < arr[i]) {
+                // decrement how many numbers missed
+                k--;
+                // if it's this one, return
+                if (k == 0) {
+                    return missingNum;
+                }
+                // increment next number missing
+                missingNum++;
+            }
+        }
+        
+        // potentially reached end of array without finding the kth missing number
+        while (k > 1) {
+            // increment until number needed
+            missingNum++;
+            k--;
+        }
+        
+        return missingNum;
+    }
+};
