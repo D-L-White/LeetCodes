@@ -1,0 +1,20 @@
+class Solution {
+public:
+    string addSpaces(string s, vector<int>& spaces) {
+        // to hold result and starting position for upcoming substring 
+        string result;
+        // initialize at 0 to catch first letters
+        int previous = 0;
+        
+        // for each space position
+        for (auto i : spaces) {
+            // add to the result all letters from previous substring to next space position
+            //  and a space
+            result += s.substr(previous, i - previous) + " ";
+            // move previous up to the next letter to be used
+            previous = i;
+        }
+        // return result so far with any additional substring for after the last one
+        return result + s.substr(previous);
+    }
+};
