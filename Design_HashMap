@@ -1,0 +1,80 @@
+class MyHashMap {
+    // top layer vector: positions in the map
+    //  second layer vector: in case of collisions
+    //  pair: the key and data
+    vector<vector<pair<int, int>>> map;
+    // size to mod key in order to get index
+    //  prime to assist in getting fewest collisions
+    const int size = 10007;
+    
+public:
+    // constructor for making all positions in the map layer
+    MyHashMap() {
+        map.resize(size);
+    }
+    
+    // method to place a key value pair into the map
+    void put(int key, int value) {
+        // determine index of where to put it
+        int index = key % size;
+        // get that collision layer
+        vector<pair<int, int>> &row = map[index];
+        
+        // loop through to see if key is already there
+        for (auto iter = row.begin(); iter != row.end(); iter++) {
+            // if find the key
+            if (iter->first == key) {
+                // replace the value for the key with updated value
+                iter->second = value;
+                // return out as no need to add the key value pair
+                //  if we did, there wouldn't be unique keys
+                return;
+            }
+        }
+        // no such key yet in place, add it to the collison layer
+        row.push_back(make_pair(key,value));
+    }
+    
+    // method to get a value associated with a key
+    int get(int key) {
+        // determine index of where it is
+        int index = key % size;
+        // get that collision layer
+        vector<pair<int, int>> &row = map[index];
+        
+        // check that row for the key
+        for (auto iter = row.begin(); iter != row.end(); iter++) {
+            // return its paired value if found
+            if (iter->first == key) {
+                return iter->second;
+            }
+        }
+        // no such key found
+        return -1;
+    }
+    
+    // method for removing a key value pair
+    void remove(int key) {
+        // determine index of where it is
+        int index = key % size;
+        // get that collision layer
+        vector<pair<int, int>> &row = map[index];
+        
+        // check that row for key
+        for (auto iter = row.begin(); iter != row.end(); iter++) {
+            // if found, remove it and stop looking
+            if (iter->first == key) {
+                row.erase(iter);
+                return;
+            }
+        }
+    }
+};
+
+/**
+ * Your MyHashMap object will be instantiated and called as such:
+ * MyHashMap* obj = new MyHashMap();
+ * obj->put(key,value);
+ * int param_2 = obj->get(key);
+ * obj->remove(key);
+ */
