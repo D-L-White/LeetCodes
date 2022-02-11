@@ -1,0 +1,70 @@
+class Solution {
+public:
+    bool checkInclusion(string s1, string s2) {
+        // ensure s2 long enough to hold a substring of s1
+        if (s1.length() > s2.length()) {
+            return false;
+        }
+        
+        // sudo maps to hold counts of each letter in s1 and s2
+        int s1Map[26] = {};
+        int s2Map[26] = {};
+        
+        // fill out sudo maps with their starting values
+        //  use s1's length as window for each substring in s2 being checked
+        for (int i = 0; i < s1.length(); i++) {
+            s1Map[s1[i] - 'a']++;
+            s2Map[s2[i] - 'a']++;
+        }
+        
+        // count of how many letters are used the same number of times in s1 and s2 window
+        int matchingCount = 0;
+        // loop to get count for first window
+        for (int i = 0; i < 26; i++) {
+            if (s1Map[i] == s2Map[i]) {
+                matchingCount++;
+            }
+        }
+        
+        // loop to move forward the window unti it hits the end
+        for (int i = 0; i < s2.length() - s1.length(); i++) {
+            // numerical value of letter at left and right of window for use with sudo maps
+            int left = s2[i] - 'a';
+            int right = s2[i + s1.length()] - 'a';
+            
+            // if we have a matching set of maps, we have found a valid window in s2
+            if (matchingCount == 26) {
+                return true;
+            }
+            
+            // decrement the left most character as it leaves the map
+            s2Map[left]--;
+            // this makes it same number of that letter
+            if (s2Map[left] == s1Map[left]) {
+                // increment the count
+                matchingCount++;
+            }
+            // it now has fewer of that letter
+            else if (s2Map[left] == s1Map[left] - 1) {
+                // decrement the count
+                matchingCount--;
+            }
+            
+            // increase the new letter being introduced at right of window
+            s2Map[right]++;
+            // this makes it same number of that letter
+            if (s2Map[right] == s1Map[right]) {
+                // increment the count
+                matchingCount++;
+            }
+            // it now has more of that letter
+            else if (s2Map[right] == s1Map[right] + 1) {
+                // decrement the count
+                matchingCount--;
+            }
+        }
+        
+        // in case the last window was the one that works
+        return matchingCount == 26;
+    }
+};
