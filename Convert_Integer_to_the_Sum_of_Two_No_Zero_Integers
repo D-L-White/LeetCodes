@@ -1,0 +1,35 @@
+class Solution {
+public:
+    // ensure no zeros in the numbers
+    bool noZero(int num) {
+        // check for zeros in ones position
+        while (num > 0) {
+            if (num % 10 == 0) {
+                return false;
+            }
+            num /= 10;
+        }
+        return true;
+    }
+    
+    // get two ints that sum to n
+    vector<int> getNoZeroIntegers(int n) {
+        // to hold the result
+        vector<int> result;
+        
+        // loop through first half
+        //  in case there isn't a solution, if not one in the first half, wont be one in the second half
+        for (int i = 1; i < n/2 + 1 ; i++) {
+            // make sure neither have zeros
+            if(noZero(i) && noZero(n - i)) {
+                // add to result and return if so
+                result.push_back(i);
+                result.push_back(n-i);
+                return result;
+            }
+        }
+        
+        // no solution found
+        return result;
+    }
+};
