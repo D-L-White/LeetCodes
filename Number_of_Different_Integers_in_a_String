@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int numDifferentIntegers(string word) {
+        // for holding all unique ints in string format
+        unordered_set<string> digitStrings;
+        
+        // loop through all characters in provided string
+        for (int i = 0; i < word.length(); i++) {
+            // skip over those that aren't digits
+            if (!isdigit(word[i])) {
+                continue;
+            }
+            
+            // reached a digit, need a temp string to hold the number
+            string temp = "";
+            // append all digits of the number we are adding
+            while (i < word.length() && isdigit(word[i])) {
+                temp += word[i];
+                i++;
+            }
+            
+            // clear any leading zeros
+            int j = 0;
+            while (j < temp.length() && temp[j] == '0') {
+                j++;
+            }
+            
+            // add unique integer as string to our set
+            temp = temp.substr(j);
+            digitStrings.insert(temp);
+        }
+        
+        // return number of unique numbers found
+        return digitStrings.size();
+    }
+};
