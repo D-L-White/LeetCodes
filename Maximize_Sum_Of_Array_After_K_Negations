@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int largestSumAfterKNegations(vector<int>& nums, int k) {
+        // sort provided vector for swapping negatives to positive
+        sort(nums.begin(), nums.end());
+        
+        // loop through vector's lowest negatives to swap as many as possible
+        for (int i = 0; i < nums.size() && k > 0; i++) {
+            // make it positive if negative
+            if (nums[i] < 0) {
+                nums[i] *= -1;
+                k--;
+            }
+            // no negatives, don't swap anything yet
+            else {
+                break;
+            }
+        }
+        
+        // sort again to ensure any now non-negatives are not at start of vector
+        sort(nums.begin(), nums.end());
+        
+        // negate the smallest value over and over until satisfied k negations
+        while (k > 0) {
+            nums[0] *= -1;
+            k--;
+        }
+        
+        // get sum of all nums post alterations
+        int sum = 0;
+        for (int num : nums) {
+            sum += num;
+        }
+        
+        // return sum
+        return sum;
+    }
+};
