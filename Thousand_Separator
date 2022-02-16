@@ -1,0 +1,47 @@
+class Solution {
+public:
+    string thousandSeparator(int n) {
+        // base case of no number
+        if (n == 0) {
+            return to_string(n);
+        }
+        // to hold result and how many per "."
+        string result = "";
+        int count = 0;
+        // loop until number completely translated
+        while (n > 0) {
+            // get next least significant digit and remove it from number
+            string temp = to_string(n % 10);
+            n /= 10;
+            // if there have been three numbers so far
+            if (count == 3) {
+                // tack on the next digit and separate it from previous with a "."
+                result = temp + "." + result;
+                // reset count for next "."
+                count = 1;
+            }
+            // not enough for a "."
+            else {
+                // tack on next digit and increment count
+                result = temp + result;
+                count++;
+            }
+        }
+        
+        // less verbose loop starting from most significant
+        //
+        // convert to a string
+        //string number = to_string(n);
+        // loop from most significant 
+        //for (int i = 0; i < number.length(); i++) {
+        //    // add a "." at correct positions
+        //    if (i > 0 && (number.length() - i) % 3 == 0) {
+        //        result += ".";
+        //    }
+        //    // append next number
+        //    result += number[i];
+        //}
+        
+        return result;
+    }
+};
