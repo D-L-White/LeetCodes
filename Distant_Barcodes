@@ -1,0 +1,51 @@
+class Solution {
+public:
+    vector<int> rearrangeBarcodes(vector<int>& barcodes) {
+        // map to hold counts of each barcode
+        unordered_map<int, int> countMap;
+        // vector to hold result
+        //  set to size of barcodes for ease of adding to
+        vector<int> result(barcodes.size(), 0);
+        
+        // fill map with counts of each code
+        for (int i = 0; i < barcodes.size(); i++) {
+            countMap[barcodes[i]]++;
+        }
+        
+        // queue to hold which codes occurred the most
+        priority_queue<pair<int, int>> countQueue;
+        
+        // fill queue
+        for (auto count : countMap) {
+            // add the count of them for priority check
+            countQueue.push(make_pair(count.second, count.first));
+        }
+        
+        // position of where to put a code in result
+        int index = 0;
+        
+        // loop until the queue is empty of codes
+        while (!countQueue.empty()) {
+            // how many of code need to be inserted and the code to be inserted
+            int count = countQueue.top().first;
+            int code = countQueue.top().second;
+            
+            // while there are more to be added
+            while (count--) {
+                // if we've passed the end of our result array
+                if (index >= result.size()) {
+                    // move back to start and begin at odd indexes
+                    index = 1;
+                }
+                // put the code at every other index until no more
+                result[index] = code;
+                index +=2;
+            }
+            
+            // remove the just finished code from the queue
+            countQueue.pop();
+        }
+        
+        return result;
+    }
+};
