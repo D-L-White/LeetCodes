@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+        // map to hold count of each number
+        unordered_map<int, int> countMap;
+        // set to ensure each count is only totalled once
+        unordered_set<int> countSet;
+        
+        // get a count of each number
+        for (auto num : arr) {
+            countMap[num]++;
+        }
+        
+        // check each count
+        for (auto count : countMap) {
+            // if we've seen the count before, return false
+            if (countSet.insert(count.second).second  == false) {
+                return false;
+            }
+        }
+        
+        // didn't see any count twice
+        return true;
+    }
+};
