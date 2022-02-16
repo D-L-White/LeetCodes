@@ -1,0 +1,65 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        // holder for preorder traversal values
+        vector<int> result;
+        
+        // recursive helper call
+        preorderHelper(root, result);
+        
+        return result;
+        
+        // iterative solution with stack
+        //
+        // stack of nodes passed over in last in first out order
+        //stack<TreeNode*> todo;
+        //
+        // loop through entire tree
+        //while (root || !todo.empty()) {
+        //    // a current node to be worked on (was to left)
+        //    if (root) {
+        //        // add value to result
+        //        result.push_back(root->val);
+        //        // add right to stack for later
+        //        if (root->right != NULL) {
+        //            todo.push(root->right);
+        //        }
+        //        // move on to left one
+        //        root = root->left;
+        //    }
+        //    // no current node (wasn't one to the left)
+        //    else {
+        //        // get the last one put into stack and move on from there
+        //        root = todo.top();
+        //        todo.pop();
+        //    }
+        //}
+        //return result;
+    }
+    
+    // recursive helper to traverse the tree
+    void preorderHelper(TreeNode* node, vector<int>& result) {
+        // no node, nothing to do
+        if (node == NULL) {
+            return;
+        }
+        
+        // add value of the node to our result
+        result.push_back(node->val);
+        // move on recursively to the left
+        preorderHelper(node->left, result);
+        // move on recursively to the right
+        preorderHelper(node->right, result);
+    }
+};
