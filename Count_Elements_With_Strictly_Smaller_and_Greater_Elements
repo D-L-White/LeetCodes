@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int countElements(vector<int>& nums) {
+        // sort array
+        sort(nums.begin(), nums.end());
+        
+        // result will always be at most 2 less than the size
+        int result = nums.size() - 2;
+        
+        // remove any duplicates from start of array
+        for (int i = 0; i < nums.size() - 1; i++) {
+            if (nums[i] == nums[i+1]) {
+                result --;
+            }
+            // break early if no more duplicates
+            else {
+                break;
+            }
+        }
+        
+        // remove any duplicates from end of array
+        for (int i = nums.size() - 1; i > 0; i--) {
+            if (nums[i] == nums[i-1]) {
+                result --;
+            }
+            // break early if no more duplicates
+            else {
+                break;
+            }
+        }
+        
+        // result may be negative is array was only one value over and over so give max of result or zero
+        return max(result, 0);
+    }
+};
