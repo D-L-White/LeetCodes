@@ -1,21 +1,26 @@
 class Solution {
 public:
     bool checkPerfectNumber(int num) {
+        // can only be a positive number
+        if (num <= 0) {
+            return false;
+        }
+        
         // rolling sum of all integers that are divisors of num
         int sum = 0;
         
-        // loop through all numbers half or under of num
-        for(int i = 1; i <= num/2; i++) {
+        // loop through all numbers below square root of num
+        for(int i = 1; i * i <= num; i++) {
             // if it's a divisor, add to the sum
             if (num % i == 0) {
                 sum += i;
-            }
-            // return false early if sum surpasses num
-            if (sum > num) {
-                return false;
+                // get inverse from above square root
+                if (i * i != num) {
+                    sum += num / i;
+                }
             }
         }
-        // sum and num must be equal for it to be true
-        return num == sum;
+        // sum - num and num must be equal for it to be true
+        return sum - num == num;
     }
 };
