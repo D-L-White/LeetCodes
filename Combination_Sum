@@ -1,0 +1,39 @@
+class Solution {
+public:
+    vector<vector<int> > combinationSum(vector<int>& candidates, int target) {
+        // sort candidates for ease of knowing if next values would be too large for summing to target
+        sort(candidates.begin(), candidates.end());
+        // vector to hold the resulting successful combinations
+        vector<vector<int>> result;
+        // vector for each combination
+        vector<int> combination;
+        // helper call to recurse through combinations
+        sumHelper(candidates, target, result, combination, 0);
+        return result;
+    }
+
+    
+    // helper function to append to candidates and subtract from target until target is reached
+    //  vector of candidates being used             target trying to be reached
+    //  vector of results for appending to          vector of values combined to be checked
+    //  position the next value should be checked from
+    void sumHelper(vector<int>& candidates, int target, vector<vector<int>>& result, vector<int>& combination, int begin) {
+        // if target hits 0, a viable solution has been found
+        if (!target) {
+            // append the combination to result and end the recursion
+            result.push_back(combination);
+            return;
+        }
+        
+        // loop to get each potential set
+        //  performed until out of scope or next element is too big anyway
+        for (int i = begin; i < candidates.size() && target >= candidates[i]; i++) {
+            // append the value to potential candidate vector
+            combination.push_back(candidates[i]);
+            // recurse in with that candidate subtracted from the target
+            sumHelper(candidates, target - candidates[i], result, combination, i);
+            // remove the candidate added in this loop allowing for check with next value
+            combination.pop_back();
+        }
+    }
+};
