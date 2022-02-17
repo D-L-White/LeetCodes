@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int diagonalSum(vector<vector<int>>& mat) {
+        // rolling sum of diagonals
+        int sum = 0;
+        
+        // diagonal from top left to bottom right
+        for (int i = 0; i < mat.size(); i++) {
+            sum += mat[i][i];
+            // clear the matrix in case of overlap on other diagonal
+            mat[i][i] = 0;
+        }
+        
+        // column selection
+        int col = 0;
+        // diagonal from top right to bottom left
+        for (int i = mat.size() - 1; i >= 0; i--) {
+            sum += mat[col][i];
+            col++;
+        }
+        
+        return sum;
+    }
+};
