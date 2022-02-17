@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string mergeAlternately(string word1, string word2) {
+        // to hold the resulting string
+        string result = "";
+        // for use in merging entire of shortest and any residual of other
+        int shortest = min(word1.length(), word2.length());
+        
+        // merge the entirety of at least one word
+        for(int i = 0; i < shortest; i++) {
+            result += word1[i];
+            result += word2[i];
+        }
+        
+        // if there are letters left over in word2
+        if(word1.length() < word2.length()) {
+            result += word2.substr(shortest);
+        }
+        // if there are letters left over in word1
+        else if (word2.length() < word1.length()) {
+            result += word1.substr(shortest);
+        }
+        
+        return result;
+    }
+};
