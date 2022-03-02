@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        // running total of how many letters have matched
+        int wordOneCount = 0;
+        // entire length of word
+        int wordOneTotal = s.length();
+        
+        // loop through entire second word
+        for (int i = 0; i < t.length(); i++) {
+            // already matched entire first word, break out early
+            if (wordOneCount == wordOneTotal) {
+                break;
+            }
+            
+            // check if found next letter in first word
+            if (t[i] == s[wordOneCount]) {
+                wordOneCount++;
+            }
+        }
+        
+        // make sure matched all of the letters from first word
+        return (wordOneCount == wordOneTotal);
+    }
+};
