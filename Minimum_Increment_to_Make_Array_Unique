@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int minIncrementForUnique(vector<int>& nums) {
+        // running total of how many changes        
+        int result = 0;
+        
+        // edge case of not any to compare
+        if (nums.size() < 2) {
+            return result;
+        }
+        
+        // sort for working through
+        sort(nums.begin(), nums.end());
+        
+        // loop from second forward
+        for (int i = 1; i< nums.size(); i++) {
+            // if less than or equal to previous
+            if (nums[i] <= nums[i-1]) {
+                // increment result by how many times this position will need to be increased
+                result += nums[i-1] + 1 - nums[i];
+                // set this position to one more than previous position
+                nums[i] = nums[i-1] + 1;
+            }
+        }
+        
+        return result;
+    }
+};
