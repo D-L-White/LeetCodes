@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int maximumDifference(vector<int>& nums) {
+        // default value
+        int result = -1;
+        // largest value towards end initial value
+        int largest = nums[nums.size()-1];
+        
+        // loop backwards through array
+        for (int i = nums.size() - 2; i >= 0; i--) {
+            // finding any larger values to be new high end
+            if (nums[i] >= largest) {
+                largest = nums[i];
+            }
+            // or seeing if this is a new low leading to potentially new maximum
+            else {
+                result = max(result, largest - nums[i]);
+            }
+        }    
+        return result;
+    }
+};
