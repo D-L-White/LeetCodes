@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int numberOfArithmeticSlices(vector<int>& nums) {
+        // running tally of subarrays
+        int result = 0;
+        
+        if (nums.size() < 3) {
+            return result;
+        }
+        
+        // loop through all possible 3 size subarrays
+        for (int left = 0; left < nums.size() - 2; left++) {
+            // check if the 3 size subarray fits the bill
+            if ((nums[left] - nums[left+1])  == (nums[left+1] - nums[left+2])) {
+                // increment for succesfull 3 size subarray 
+                result++;
+                // find the target differnce for adding more
+                int target = (nums[left] - nums[left+1]);
+                // get right side of window for expansion
+                int right = left + 2;
+                // as long as room for expansion, check next position 
+                while (right < nums.size() - 1) {
+                    // if expanding window doesn't break the rule
+                    if ((nums[right] - nums[right+1]) == target) {
+                        // increment for succesfull larger window and expand window
+                        result++;
+                        right++;
+                    }
+                    // expanding breaks the rule, start from next 3 size subarray
+                    else {
+                        break;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+};
