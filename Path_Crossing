@@ -1,0 +1,40 @@
+class Solution {
+public:
+    bool isPathCrossing(string path) {
+        // cardinal direction starting position
+        int X = 0;
+        int Y = 0;
+        
+        // all positions visited with a start position
+        set<pair<int,int>> visited;
+        visited.insert({0,0});
+        
+        // loop through all directions
+        for (auto direction : path) {
+            // update position based on direction
+            if (direction == 'N') {
+                Y++;
+            }
+            else if (direction == 'S') {
+                Y--;
+            }
+            else if (direction == 'E') {
+                X++;
+            }
+            else if (direction == 'W') {
+                X--;
+            }
+            // check if we've been here before
+            if (visited.find({X,Y}) != visited.end()) {
+                return true;
+            }
+            // or add it to the positions visited
+            else {
+                visited.insert({X,Y});
+            }
+        }
+        
+        // got through directions without hitting a visited spot
+        return false;
+    }
+};
