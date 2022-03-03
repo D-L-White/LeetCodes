@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<vector<int>> transpose(vector<vector<int>>& matrix) {
+        // resulting matrix of same size as original
+        vector<vector<int>> result(matrix[0].size(), vector<int>(matrix.size(), 0));
+        // loop through entire original matrix
+        //  row by row
+        for (int i = 0; i < matrix[0].size(); i++) {
+            // column by column
+            for (int j = 0; j < matrix.size(); j++) {
+                // placing them in transposed position
+                result[i][j] = matrix[j][i];
+            }
+        }
+        
+        return result;
+    }
+};
