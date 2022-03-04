@@ -1,0 +1,36 @@
+class NumArray {
+public:
+    // vector containig the sum up to each index
+    vector<int> cumulativeSum;
+    
+    // instantiate the vector of sums
+    NumArray(vector<int>& nums) {
+        // take in the initial value of each index
+        cumulativeSum = nums;
+        // loop through entire array avoiding out of bounds
+        for (int i = 0; i < nums.size() - 1; i++) {
+            // the next position is equal to itself and all that came before
+            cumulativeSum[i+1] += cumulativeSum[i];
+        }
+    }
+    
+    // find sum of range between two indexes
+    int sumRange(int left, int right) {
+        // if starting at 0, right index has the entire sum up to that point
+        if (left == 0) {
+            return cumulativeSum[right];
+        }
+        
+        // if window is within the vector
+        //  right is entire sum to that point
+        //  while index before left is all that was before
+        //  difference is the range's sum
+        return cumulativeSum[right] - cumulativeSum[left-1];
+    }
+};
+
+/**
+ * Your NumArray object will be instantiated and called as such:
+ * NumArray* obj = new NumArray(nums);
+ * int param_1 = obj->sumRange(left,right);
+ */
