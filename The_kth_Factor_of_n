@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int kthFactor(int n, int k) {
+        // set of all factors found ensuring no duplicates
+        set<int> factors;
+        
+        // find all possible factors
+        for (int i = 1; i <= sqrt(n); i++) {
+            // add any found to set
+            if (n % i == 0) {
+                factors.insert(i);
+            
+                // add opposing factor as well
+                if (i != sqrt(n)) {
+                    factors.insert(n / i);
+                }
+            }
+        }
+        
+        // ensure enough to get the kth one
+        if (factors.size() < k) {
+            return -1;
+        }
+        else {
+            // iterate through the factors until desired one
+            auto setIter = factors.begin();
+            while (--k > 0) {
+                setIter++;
+            }
+            // dereference for value and return
+            return *setIter;
+        }
+    }
+};
