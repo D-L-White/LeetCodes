@@ -1,0 +1,51 @@
+class Solution {
+public:
+    string reformatNumber(string number) {
+        // resulting sections of number
+        vector<string> result;
+        
+        // clear all non numbers
+        for (int i = 0; i < number.length(); i++) {
+            if (isdigit(number[i])) {
+                continue;
+            }
+            else {
+                // make sure to cover what would have been next
+                number.erase(i,1);
+                i--;
+            }
+        }
+        
+        // as long as more than 4, grab 3 length strings into vector
+        while (number.length() > 4) {
+            result.push_back(number.substr(0,3));
+            number.erase(0,3);
+        }
+        
+        // if just three left, add to vector
+        if (number.length() == 3) {
+            result.push_back(number);
+        }
+        // 2 or 4 left
+        else {
+            // take rest as doubles
+            while (number.length() > 0) {
+                result.push_back(number.substr(0,2));
+                number.erase(0,2);
+            }
+        }
+        
+        // clear number for final fill
+        number = "";
+        
+        // format number
+        for (auto nums : result) {
+            number += nums + "-";
+        }
+        
+        // get rid of eroneous "-" at end
+        number.erase(number.length()-1);
+        
+        return number;
+    }
+};
