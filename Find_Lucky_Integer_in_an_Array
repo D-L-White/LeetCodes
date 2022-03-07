@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int findLucky(vector<int>& arr) {
+        // get count of all numbers
+        map<int,int> counts;
+        for (auto num : arr){
+            counts[num]++;
+        }
+        // base case of none
+        int result = -1;
+        
+        // check each number
+        for (auto nums : counts) {
+            // see if their count is their number
+            if (nums.first == nums.second) {
+                result = max(result, nums.first);
+            }
+        }
+        
+        return result;
+    }
+};
