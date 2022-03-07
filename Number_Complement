@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int findComplement(int num) {
+        // get count for mask size
+        int shift = 0;
+        int temp = num;
+        while (temp > 0) {
+            temp = temp>>1;
+            shift++;
+        }
+        
+        // create mask
+        temp = 0;
+        while (shift > 0) {
+            temp = temp<<1;
+            temp +=1;
+            shift--;
+        }
+        
+        // XOR for result
+        return num^temp;
+    }
+};
