@@ -1,0 +1,62 @@
+class Solution {
+public:
+    string simplifyPath(string path) {
+        // stack to hold all parts of the path for reassembly
+        stack<string> stackPath;
+        
+        // loop through entire path provided
+        for (int i = 0; i < path.length(); i++) {
+            // skip over any slashes as not necessary
+            if (path[i] == '/') {
+                // move to next position
+                continue;
+            }
+            
+            // to hold current path being parsed
+            string currentPath = "";
+            // parse through the path until reach end or next slash
+            while (i < path.length() && path[i] != '/') {
+                // parse in next character and move on to next
+                currentPath += path[i];
+                i++;
+            }
+            
+            // logic for checking for unix commands
+            //  do nothing for this
+            if (currentPath == ".") {
+                continue;
+            }
+            // remove the previous path
+            else if (currentPath == "..") {
+                if (!stackPath.empty()) {
+                    stackPath.pop();
+                }
+                continue;
+            }
+            // put the latest path in the stack
+            else {
+                stackPath.push(currentPath);
+            }
+        }
+        
+        // to hold rebuilt path
+        string resultingPath = "";
+        
+        // loop through stack from end of path to front of path
+        while (!stackPath.empty()) {
+            // tack on end of the path to the next piece taken from stack
+            resultingPath = "/" + stackPath.top() + resultingPath;
+            // remove latest from stack for next
+            stackPath.pop();
+        }
+        
+        // if nothing was in stack, return root
+        if (resultingPath == "") {
+            return "/";
+        }
+        // otherwise, return thr built path
+        else {
+            return resultingPath;
+        }
+    }
+};
