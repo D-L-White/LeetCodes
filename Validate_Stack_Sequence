@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
+        // total number of elements needing to be worked through
+        int size = pushed.size();
+        
+        // stack to hold all elements as they are tested for proper ordering
+        stack<int> stackedPushed;
+        
+        // index of next that should be popped
+        int i = 0;
+        
+        // loop through all numbers to be pushed
+        for (auto num : pushed) {
+            // push them to the stack
+            stackedPushed.push(num);
+            // if stack isn't empty, haven't moved past the end, and the top of stack is next to be popped
+            //  final logic step ensures no values or completely out of order
+            while (!stackedPushed.empty() && i < size && stackedPushed.top() == popped[i]) {
+                // pop top of stack
+                stackedPushed.pop();
+                // move to check if next in stack is what is to be popped
+                i++;
+            }
+        }
+        
+        // ensure we got through entire popped
+        return i == size;
+    }
+};
