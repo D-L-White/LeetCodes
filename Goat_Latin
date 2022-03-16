@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string toGoatLatin(string sentence) {
+        // string stream for parsing sentence
+        stringstream sentenceStream(sentence);
+        
+        // variables for latest word, final result, all vowels, and what word we are on
+        string word = "";
+        string result = "";
+        int wordCount = 1;
+        string vowel = "aeiou";
+        
+        while (sentenceStream >> word) {
+            // latest word starts with a vowel
+            if (vowel.find(tolower(word[0])) != string::npos) {
+                // append ma and a * word count to end of word and append word to result with a space before word
+                result += " " + word + "ma" + string(wordCount++, 'a');
+            }
+            // not vowel starting
+            else {
+                // move first letter to end of word, append ma and a * word count, and append word to result with a space before word
+                result += " " + word.substr(1) + word[0] + "ma" + string(wordCount++, 'a');
+            }
+        }
+        
+        // remove front space before returning altered sentence
+        return result.substr(1);
+    }
+};
