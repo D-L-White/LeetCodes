@@ -1,0 +1,31 @@
+class Solution {
+public:
+    bool kLengthApart(vector<int>& nums, int k) {
+        // ensure leading 1 doesn't break logic
+        int distance = INT_MAX;
+        
+        // loop through vector
+        for (int i = 0; i < nums.size(); i++) {
+            // if a 1
+            if (nums[i] == 1) {
+                // ensure haven't seen a 1 too close to this one
+                if (distance < k) {
+                    return false;
+                }
+                // start count over
+                distance = 0;
+            }
+            // not a 1
+            else {
+                // make sure not overflow because haven't seen a 1
+                if (distance != INT_MAX){
+                    // increment count for spaces between 1s
+                    distance++;
+                }
+            }
+        }
+        
+        // got through successfully 
+        return true;
+    }
+};
