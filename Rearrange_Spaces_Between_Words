@@ -1,0 +1,56 @@
+class Solution {
+public:
+    string reorderSpaces(string text) {
+        // variables to hold information for use
+        int spaceCount = 0;
+        // latest word being parsed
+        string currentWord = "";
+        // final resutl
+        string result = "";
+        // holds all words
+        vector<string> words {};
+        
+        // parse the string
+        for (auto character : text) {
+            // count the spaces
+            if (character == ' ') {
+                spaceCount++;
+                // and save words
+                if (!currentWord.empty()) {
+                    words.push_back(currentWord);
+                }
+                // before moving to a new word
+                currentWord = "";
+            }
+            else {
+                // take in more of a word
+                currentWord += character;
+            }
+        }
+        
+        // ensure last word captured
+        if (!currentWord.empty()) {
+            words.push_back(currentWord);
+        }
+        
+        // only one word edge case
+        if (words.size() == 1) {
+            // add all spaces to end
+            return words[0] + string(spaceCount, ' ');
+        }
+        
+        // find how many spaces per gap and for end of string
+        int gaps = spaceCount / (words.size() - 1);
+        int excess = spaceCount % (words.size() - 1);
+        
+        // fill out the string
+        //  last word has unwanted spaces after it
+        for (auto word : words) {
+            result += word + string(gaps, ' ');
+        }
+        
+        // return current result except for unwanted spaces at end
+        //  + any excess spaces that should be at end
+        return result.substr(0, result.size() - gaps) + string(excess, ' ');
+    }
+};
