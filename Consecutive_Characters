@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int maxPower(string s) {
+        // latest run of same char
+        int temp = 1;
+        // maximum run
+        int result = 1;
+        
+        // loop through string
+        for (int i = 1; i < s.length(); i++) {
+            // see if same as previous
+            if (s[i] == s[i-1]) {
+                // increase temp if so
+                temp++;
+                // check if surpased previous maximum run
+                result = max(result, temp);
+            }
+            // new character
+            else {
+                // start the run over again
+                temp = 1;
+            }
+        }
+        
+        // return the maximum run length
+        return result;
+    }
+};
