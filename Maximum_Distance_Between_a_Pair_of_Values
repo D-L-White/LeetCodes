@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int maxDistance(vector<int>& nums1, vector<int>& nums2) {
+        // begin at left side with closed window and valid result
+        int i = 0;
+        int j = 0;
+        int result = 0;
+        
+        // parse the vectors until one goes off the end
+        while (i < nums1.size() && j < nums2.size()) {
+            // check for valid pair
+            if (nums1[i] <= nums2[j]) {
+                // check if wider
+                result = max(result, j- i);
+                // keep opening gap to see if more in num2 <= num1[i]
+                j++;
+            }
+            // not a valid pair
+            else {
+                // close the gap to check against new num[i]
+                i++;
+            }
+        }
+        return result;
+    }
+};
