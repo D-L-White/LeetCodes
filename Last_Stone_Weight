@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int lastStoneWeight(vector<int>& stones) {
+        // set up a priority queue of largest to smallest elements
+        priority_queue<int> stoneQueue(stones.begin(), stones.end());
+        
+        // until only one or no elements
+        while (stoneQueue.size() > 1) {
+            // cache largest two
+            int y = stoneQueue.top();
+            stoneQueue.pop();
+            int x = stoneQueue.top();
+            stoneQueue.pop();
+            // if not the same, add to the queue their difference
+            //  if were same, they no longer are needed
+            if (x != y) {
+                stoneQueue.push(y - x);
+            }
+        }
+        // return either 0 if empty (last two were same)
+        //  or the lone element
+        return stoneQueue.empty() ? 0 : stoneQueue.top();
+    }
+};
